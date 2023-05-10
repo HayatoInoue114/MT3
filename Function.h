@@ -71,13 +71,13 @@ Matrix3x3 MakeAffineMatrix(Vector2 scale, float theta, Vector2 translate);
 //2x2逆行列を求める
 Matrix2x2 Inverse(Matrix2x2 matrix);
 //3x3逆行列を求める
-Matrix3x3 Inverse3x3(Matrix3x3 matrix);
+//Matrix3x3 Inverse3x3(Matrix3x3 matrix);
 
-void MatrixScreenPrintf(int x, int y, Matrix3x3 matrix);
+//void MatrixScreenPrintf(int x, int y, Matrix3x3 matrix);
 
 
 Matrix2x2 MatrixMultiply(float num, Matrix2x2 matrix);
-Matrix3x3 MatrixMultiply3x3(float num, Matrix3x3 matrix);
+//Matrix3x3 MatrixMultiply3x3(float num, Matrix3x3 matrix);
 
 Matrix2x2 Transpose(Matrix2x2 matrix);
 Matrix3x3 Transpose(Matrix3x3 matrix);
@@ -85,7 +85,7 @@ Matrix3x3 Transpose(Matrix3x3 matrix);
 Matrix3x3 MakeOrthographicMatrix(float left, float top, float right, float bottom);
 Matrix3x3 MakeViewposrtMatrix(float left, float top, float width, float height);
 
-void DrawQuad(Vector2 leftTop, Vector2 rightTop, Vector2 LeftBottom, Vector2 rightBottom, Vector2 scale,unsigned int color, int texturHundle);
+//void DrawQuad(Vector2 leftTop, Vector2 rightTop, Vector2 LeftBottom, Vector2 rightBottom, Vector2 scale,unsigned int color, int texturHundle);
 
 struct Vector3
 {
@@ -123,6 +123,14 @@ Matrix4x4 Inverse(const Matrix4x4& m);
 Matrix4x4 Transpose(const Matrix4x4& m);
 //単位行列の作成
 Matrix4x4 MakeIdentity4x4();
+
+//X軸回転行列
+Matrix4x4 MakeRotateXMatrix(float radian);
+//Y軸回転行列
+Matrix4x4 MakeRotateYMatrix(float radian);
+//Z軸回転行列
+Matrix4x4 MakeRotateZMatrix(float radian);
+
 
 
 
