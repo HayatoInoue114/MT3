@@ -332,7 +332,7 @@ Matrix4x4 Inverse(const Matrix4x4& m) {
 		1 / num * (m.m[0][1] * m.m[1][2] * m.m[3][3] + m.m[0][2] * m.m[1][3] * m.m[3][1] + m.m[0][3] * m.m[1][1] * m.m[3][2] - m.m[0][1] * m.m[1][2] * m.m[3][2] - m.m[0][2] * m.m[1][1] * m.m[3][3] - m.m[0][3] * m.m[1][2] * m.m[3][1]),
 		1 / num * (m.m[0][1] * m.m[1][3] * m.m[2][2] + m.m[0][2] * m.m[1][1] * m.m[2][3] + m.m[0][3] * m.m[1][2] * m.m[2][1] - m.m[0][1] * m.m[1][3] * m.m[3][2] - m.m[0][2] * m.m[1][3] * m.m[2][1] - m.m[0][3] * m.m[1][1] * m.m[2][2]),
 
-		1 / num * (m.m[1][0] * m.m[2][3] * m.m[3][2] + m.m[1][2] * m.m[2][0] * m.m[3][3] + m.m[1][3] * m.m[2][2] * m.m[3][0] - m.m[1][0] * m.m[2][2] * m.m[3][3] - m.m[1][2] * m.m[2][4] * m.m[3][1] - m.m[1][3] * m.m[2][1] * m.m[3][2]),
+		1 / num * (m.m[1][0] * m.m[2][3] * m.m[3][2] + m.m[1][2] * m.m[2][0] * m.m[3][3] + m.m[1][3] * m.m[2][2] * m.m[3][0] - m.m[1][0] * m.m[2][2] * m.m[3][3] - m.m[1][2] * m.m[2][3] * m.m[3][1] - m.m[1][3] * m.m[2][1] * m.m[3][2]),
 		1 / num * (m.m[0][0] * m.m[2][2] * m.m[3][3] + m.m[0][2] * m.m[0][3] * m.m[3][0] + m.m[0][3] * m.m[2][0] * m.m[3][2] - m.m[0][0] * m.m[2][3] * m.m[3][2] - m.m[0][2] * m.m[2][0] * m.m[3][3] - m.m[0][3] * m.m[2][2] * m.m[3][0]),
 		1 / num * (m.m[0][0] * m.m[1][3] * m.m[3][2] + m.m[0][2] * m.m[1][0] * m.m[3][3] + m.m[0][3] * m.m[1][2] * m.m[3][0] - m.m[0][0] * m.m[1][2] * m.m[3][3] - m.m[0][2] * m.m[1][3] * m.m[3][0] - m.m[0][3] * m.m[1][0] * m.m[3][2]),
 		1 / num * (m.m[0][0] * m.m[1][2] * m.m[2][3] + m.m[0][2] * m.m[1][3] * m.m[2][0] + m.m[0][3] * m.m[1][0] * m.m[2][2] - m.m[0][0] * m.m[1][3] * m.m[2][2] - m.m[0][2] * m.m[1][0] * m.m[2][3] - m.m[0][3] * m.m[1][2] * m.m[2][0]),
@@ -400,6 +400,16 @@ Matrix4x4 MakeRotateZMatrix(float radian) {
 	return mat;
 }
 
+
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
+	Matrix4x4 mat = {
+		scale.x * std::cosf(rotate.y) * std::cosf(rotate.z),   scale.x * std::sinf(rotate.z),   scale.x * -std::sinf(rotate.y),   0,
+		scale.y * -std::sinf(rotate.z),   scale.y * -std::sinf(rotate.x) * std::cosf(rotate.z),   scale.y,   0,
+		scale.z * std::sinf(rotate.y),   scale.z * -std::sinf(rotate.x),   scale.z * std::cosf(rotate.y),   0,
+		translate.x,translate.y,translate.z,1
+	};
+	return mat;
+}
 
 
 void MatrixScreenPrintf(int x, int y, const Matrix4x4& matrix) {
