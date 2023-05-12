@@ -38,6 +38,9 @@
     <ClCompile Include="Function.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="kari.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
