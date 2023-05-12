@@ -14,6 +14,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
 	//変数の定義
+	Vector3 v1{ 1.2f,-3.9f,2.5f };
+	Vector3 v2{ 2.8f,0.4f,-1.3f };
+
+	Vector3 rotate{};
+	Vector3 translate{};
 	
 
 	/*const int WhiteTexture = Novice::LoadTexture("white1x1.png");*/
@@ -34,9 +39,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-		Matrix4x4 orthographicmatrix = MakeOrthographicMatrix(-160.f, 160.f, 200.0f, 300.0f, 0.0f, 1000.0f);
-		Matrix4x4 perspectiveFovMatrix = MakePerspectiveFovMatrix(0.63f, 1.33f, 0.1f, 1000.0f);
-		Matrix4x4 viewportMatrix = MakeViewportMatrix(100.0f, 200.0f, 600.0f, 300.0f, 0.0f, 1.0f);
+		Vector3 cross = Cross(v1, v2);
+
+		//各種行列の計算
+		Matrix4x4 worldMatrix = MakeAffineMatrix({ 1.0f,1.0f,1.0f }, rotate, translate);
+		Matrix4x4 cameraMatrix = MakeAffineMatrix({ 1.0f,1.0f,1.0f }, { 0.0f,0.0f,0.0f }, cameraPosition);
+		Matrix4x4 viewmatix = Inverse(cameraMatrix);
 		///
 		/// ↑更新処理ここまで
 		///
@@ -44,9 +52,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-		MatrixScreenPrintf(0, 0,orthographicmatrix);
+		
+		VectorScreenPrintf(0, 0, cross,"Cross");
+
+	/*	MatrixScreenPrintf(0, 0,orthographicmatrix);
 		MatrixScreenPrintf(0, kRowHeight * 5, perspectiveFovMatrix);
-		MatrixScreenPrintf(0, kRowHeight * 5 * 2, viewportMatrix);
+		MatrixScreenPrintf(0, kRowHeight * 5 * 2, viewportMatrix);*/
 		/*MatrixScreenPrintf(0, kRowHeight * 5 * 3, rotateXYZmatrix);*/
 		
 		///
