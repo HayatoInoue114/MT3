@@ -402,10 +402,17 @@ Matrix4x4 MakeRotateZMatrix(float radian) {
 
 
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
+	Matrix4x4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
+	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
+	Matrix4x4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
+	Matrix4x4 rotateMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
+
+	
+
 	Matrix4x4 mat = {
-		scale.x * std::cosf(rotate.y) * std::cosf(rotate.z),   scale.x * std::sinf(rotate.z),   scale.x * -std::sinf(rotate.y),   0,
-		scale.y * -std::sinf(rotate.z),   scale.y * -std::sinf(rotate.x) * std::cosf(rotate.z),   scale.y,   0,
-		scale.z * std::sinf(rotate.y),   scale.z * -std::sinf(rotate.x),   scale.z * std::cosf(rotate.y),   0,
+		scale.x * rotateMatrix.m[0][0],   scale.x * rotateMatrix.m[0][1],   scale.x * rotateMatrix.m[0][2],   0,
+		scale.y * rotateMatrix.m[1][0],   scale.y * rotateMatrix.m[1][1],   scale.y * rotateMatrix.m[1][2],   0,
+		scale.z * rotateMatrix.m[2][0],   scale.z * rotateMatrix.m[2][1],   scale.z * rotateMatrix.m[2][2],   0,
 		translate.x,translate.y,translate.z,1
 	};
 	return mat;
