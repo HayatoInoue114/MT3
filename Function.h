@@ -143,3 +143,13 @@ Matrix4x4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip
 Matrix4x4 MakeOrthographicMatrix(float left, float right, float top, float bottom, float nearClip, float farClip);
 //3.ビューポート変換行列
 Matrix4x4 MakeViewportMatrix(float left, float top, float width, float height, float minDepth, float maxDepth);
+
+
+//クロス積
+Vector3 Cross(const Vector3& v1, const Vector3& v2);
+
+Vector3 Transform(const Vector3& num, const Matrix4x4& m);
+
+float InverseNum(const Matrix4x4& m, int a, int b, int c, int d, int e, int f, int g, int h);
+float InverseNum2(const Matrix4x4& m, int a, int b, int c, int d, int e, int f);
+
