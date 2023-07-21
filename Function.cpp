@@ -567,3 +567,49 @@ Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2) {
 
 	return resultMatrix;
 }
+
+//void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix) {
+//	const float kGridHalfWidth = 2.0f;  //Grid‚Ì”¼•ª‚Ì•
+//	const uint32_t kSubdivision = 10;  //•ªŠ„”
+//	const float kGridEvery = (kGridHalfWidth * 2.0f) / float(kSubdivision);  //1‚Â•ª‚Ì’·‚³
+//
+//	Vector3 startLinePosision[kSubdivision] = {};
+//	Vector3 endLinePosition[kSubdivision] = {};
+//	Vector3 screenStartLinePosition[kSubdivision] = {};
+//	Vector3 screenEndLinePosition[kSubdivision] = {};
+//
+//	Vector3 ndcStartLine[kSubdivision] = {};
+//	Vector3 ndcEndLine[kSubdivision] = {};
+//
+//	for (uint32_t xIndex = 0; xIndex <= kSubdivision; xIndex++) {
+//
+//		ndcStartLine[xIndex] = Transform(startLinePosision[xIndex], viewProjectionMatrix);
+//		ndcEndLine[xIndex] = {ndcStartLine[xIndex].x,ndcStartLine[xIndex].y + kGridEvery,ndcStartLine[xIndex].z};
+//
+//		screenStartLinePosition[xIndex] = Transform(ndcStartLine[xIndex], viewportMatrix);
+//		screenEndLinePosition[xIndex] = Transform(ndcEndLine[xIndex], viewportMatrix);
+//
+//		Novice::DrawLine(screenStartLinePosition[xIndex].x, screenStartLinePosition[xIndex].y, screenEndLinePosition[xIndex].x, screenEndLinePosition[xIndex].y,0xaaaaaaff);
+//	}
+//
+//	for (uint32_t zIndex = 0; zIndex <= kSubdivision; ++zIndex) {
+//
+//	}
+//}
+
+//void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
+//	const uint32_t kSubdivision = 0;
+//	const float kLonEvery = 0;
+//	const float kLatEvery = 0;
+//
+//	for (uint32_t latIndex = 0; latIndex < kSubdivision; ++latIndex) {
+//		float lat = -pi / 2.0f + kLatEvery * latIndex;
+//		for (uint32_t lonIndex = 0; lonIndex < kSubdivision; ++lonIndex) {
+//			float lon = lonIndex * kLonEvery;
+//
+//			Vector3 a, b, c;
+//
+//
+//		}
+//	}
+//}

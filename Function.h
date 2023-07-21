@@ -1,5 +1,9 @@
 #pragma once
 
+const int kWindowWidth = 1280;
+const int kWindowHeight = 720;
+
+
 struct Matrix2x2
 {
 	float m[2][2];
@@ -153,3 +157,12 @@ Vector3 Transform(const Vector3& num, const Matrix4x4& m);
 float InverseNum(const Matrix4x4& m, int a, int b, int c, int d, int e, int f, int g, int h);
 float InverseNum2(const Matrix4x4& m, int a, int b, int c, int d, int e, int f);
 
+//void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix);
+
+struct Sphere
+{
+	Vector3 center;
+	float radius;
+};
+
+//void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);

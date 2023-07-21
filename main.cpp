@@ -4,8 +4,6 @@
 #include<math.h>
 #include<stdint.h>
 
-const int kWindowWidth = 1280;
-const int kWindowHeight = 720;
 
 
 const char kWindowTitle[] = "LC1A_04";
@@ -28,6 +26,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	kLocalVertices[0] = { 0, 0.5, 0 };
 	kLocalVertices[1] = { -0.5, -0.5 ,0 };
 	kLocalVertices[2] = { 0.5, -0.5, 0 };
+
+	Vector3 cameraTranslate{ 0.0f,1.9f,-6.49 };
+	Vector3 cameraRotate{ 0.26f,0.0f,0.0f, };
 	
 
 	/*const int WhiteTexture = Novice::LoadTexture("white1x1.png");*/
@@ -82,12 +83,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-		
 		Novice::DrawTriangle(
 			int(screenVertices[0].x), int(screenVertices[0].y), int(screenVertices[1].x), int(screenVertices[1].y),
 			int(screenVertices[2].x), int(screenVertices[2].y), RED, kFillModeSolid
 				);
 
+		/*DrawGrid(worldViewProjectionMatrix, viewportMatrix);*/
 	/*	MatrixScreenPrintf(0, 0,orthographicmatrix);
 		MatrixScreenPrintf(0, kRowHeight * 5, perspectiveFovMatrix);
 		MatrixScreenPrintf(0, kRowHeight * 5 * 2, viewportMatrix);*/
