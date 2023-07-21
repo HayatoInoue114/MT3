@@ -28,6 +28,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	sphere2.center = { 0.5f, 0.5f, 0.0f };
 	sphere2.radius = 1.0f;
 
+	Plane plane;
+
 	unsigned int color = WHITE;
 	/*const int WhiteTexture = Novice::LoadTexture("white1x1.png");*/
 
@@ -64,12 +66,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		ImGui::Begin("Window");
 		ImGui::DragFloat3("CameraTranslate", &cameraTranslate.x, 0.01f);
 		ImGui::DragFloat3("CameraRotate", &cameraRotate.x, 0.01f);
-		ImGui::DragFloat3("SphereCenter1", &sphere1.center.x, 0.01f);
-		ImGui::DragFloat("SphereRadius1", &sphere1.radius, 0.01f);
+		/*ImGui::DragFloat3("SphereCenter1", &sphere1.center.x, 0.01f);
+		ImGui::DragFloat("SphereRadius1", &sphere1.radius, 0.01f);*/
 		ImGui::DragFloat3("SphereCenter2", &sphere2.center.x, 0.01f);
 		ImGui::DragFloat("SphereRadius2", &sphere2.radius, 0.01f);
+		ImGui::DragFloat3("Plane.Normal", &plane.normal.x, 0.01f);
 		ImGui::End();
 
+
+		plane.normal = Normalize(plane.normal);
 		///
 		/// ↑更新処理ここまで
 		///
@@ -79,7 +84,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		
 		DrawGrid(viewProjectionMatrix, viewportMatrix);
-		DrawSphere(sphere1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
+		/*DrawSphere(sphere1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);*/
 		DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
 
 

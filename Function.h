@@ -201,3 +201,13 @@ struct Segment
 
 Vector3 Project(const Vector3& v1, const Vector3& v2);
 Vector3 ClosestPoint(const Vector3& point, const Segment& segment);
+
+struct Plane 
+{
+	Vector3 normal; //!< 法線
+	float distance; //!< 距離
+};
+
+bool IsCollision(const Sphere& sphere, const Plane& plane);
+
+Vector3 Perpendicular(const Vector3& vector);

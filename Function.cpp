@@ -760,3 +760,22 @@ Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
 	return cp;
 }
 
+bool IsCollision(const Sphere& sphere, const Plane& plane) {
+	Vector3 tmp = Multiply(plane.normal, sphere.center);
+	tmp = { tmp.x - plane.distance, tmp.y - plane.distance, tmp.z - plane.distance };
+	float distance = Length(Normalize(tmp));
+
+	if (distance <= sphere.radius) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+Vector3 Perpendicular(const Vector3& vector) {
+	if (vector.x != 0.0f || vector.y != 0.0f) {
+		return { -vector.y,vector.x,0.0f };
+	}
+	return{ 0.0f,-vector.z,vector.y };
+}
