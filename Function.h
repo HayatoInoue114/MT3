@@ -1,4 +1,10 @@
 #pragma once
+#include<Novice.h>
+#include<math.h>
+#include<assert.h>
+#include<cmath>
+
+#define M_PI 3.14f
 
 const int kWindowWidth = 1280;
 const int kWindowHeight = 720;
@@ -157,7 +163,7 @@ Vector3 Transform(const Vector3& num, const Matrix4x4& m);
 float InverseNum(const Matrix4x4& m, int a, int b, int c, int d, int e, int f, int g, int h);
 float InverseNum2(const Matrix4x4& m, int a, int b, int c, int d, int e, int f);
 
-//void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix);
+void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix);
 
 struct Sphere
 {
@@ -165,4 +171,4 @@ struct Sphere
 	float radius;
 };
 
-//void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
+void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
