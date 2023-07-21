@@ -177,6 +177,8 @@ struct Sphere
 	float radius;
 };
 
+bool IsCollision(const Sphere& s1, const Sphere& s2);
+
 void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
 
 struct Line

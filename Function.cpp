@@ -646,6 +646,16 @@ void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMa
 	}
 }
 
+bool IsCollision(const Sphere& s1, const Sphere& s2) {
+	float distance = Length(Subtract(s2.center, s1.center));
+
+	if (distance <= s1.radius + s2.radius) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
 	const uint32_t kSubdivision = 16;
