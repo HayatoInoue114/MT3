@@ -77,11 +77,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		
 		DrawGrid(viewProjectionMatrix, viewportMatrix);
-		/*DrawSphere(sphere, Multiply(viewMatrix, projectionMatrix), viewportMatrix, BLACK);*/
-		DrawSphere(pointSphere, viewProjectionMatrix, viewportMatrix, RED);
-		DrawSphere(closestPointSphere, viewProjectionMatrix, viewportMatrix, BLACK);
-		Novice::DrawLine(int(start.x), int(start.y), int(end.x), int(end.y), WHITE);
-
+		DrawSphere(sphere1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
+		DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
 
 
 		///
