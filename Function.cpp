@@ -274,6 +274,39 @@ Vector3 Normalize(const Vector3& v) {
 	return num;
 }
 
+Vector3 Multiply(const Vector3& v1, const Vector3& v2) {
+	Vector3 result = {
+		v1.x * v2.x,v1.y * v2.y,v1.z * v2.z
+	};
+
+	return result;
+}
+
+Vector3 Clamp(const Vector3& v1, const Vector3& min, const Vector3& max) {
+	Vector3 result = v1;
+	if (result.x < min.x) {
+		result.x = min.x;
+	}
+	if (result.x > max.x) {
+		result.x = max.x;
+	}
+
+	if (result.y < min.y) {
+		result.y = min.y;
+	}
+	if (result.y > max.y) {
+		result.y = max.y;
+	}
+
+	if (result.z < min.z) {
+		result.z = min.z;
+	}
+	if (result.z > max.z) {
+		result.z = max.z;
+	}
+	return result;
+}
+
 void VectorScreenPrintf(int x, int y, const Vector3& vector, const char* label) {
 	Novice::ScreenPrintf(x, y, "%.02f", vector.x);
 	Novice::ScreenPrintf(x + kColumnWidth, y, "%.02f", vector.y);
@@ -703,3 +736,17 @@ void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, con
 		}
 	}
 }
+
+Vector3 Project(const Vector3& v1, const Vector3& v2) {
+	Vector3 normalizeV2 = Normalize(v2);
+	Vector3 result = Multiply(normalizeV2, Multiply(v1, normalizeV2));
+	return result;
+}
+
+Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
+	Vector3 result = Project(Subtract(point, segment.origin), segment.diff);
+	Vector3 cp = Add(segment.origin, result);
+
+	return cp;
+}
+

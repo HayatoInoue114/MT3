@@ -115,6 +115,12 @@ float Length(const Vector3& v);
 //正規化
 Vector3 Normalize(const Vector3& v);
 
+//Vector3同士の掛け算
+Vector3 Multiply(const Vector3& v1, const Vector3& v2);
+
+//Clamp
+Vector3 Clamp(const Vector3& v1,const Vector3& min, const Vector3& max);
+
 static const int kColumnWidth = 60;
 void VectorScreenPrintf(int x, int y, const Vector3& vector, const char* label);
 
@@ -172,3 +178,24 @@ struct Sphere
 };
 
 void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
+
+struct Line
+{
+	Vector3 origin; //!< 始点
+	Vector3 diff; //!< 終点への差分ベクトル
+};
+
+struct Ray
+{
+	Vector3 origin; //!< 始点
+	Vector3 diff; //!< 終点への差分ベクトル
+};
+
+struct Segment
+{
+	Vector3 origin; //!< 始点
+	Vector3 diff; //!< 終点への差分ベクトル
+};
+
+Vector3 Project(const Vector3& v1, const Vector3& v2);
+Vector3 ClosestPoint(const Vector3& point, const Segment& segment);
