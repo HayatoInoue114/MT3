@@ -6,7 +6,7 @@
 #include<imgui.h>
 
 
-const char kWindowTitle[] = "LC1A_04";
+const char kWindowTitle[] = "LE2B_03";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -55,7 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Matrix4x4 viewProjectionMatrix = Multiply(viewMatrix, projectionMatrix);
 		Matrix4x4 viewportMatrix = MakeViewportMatrix(0, 0, float(kWindowWidth), float(kWindowHeight), 0.0f, 1.0f);
 
-		if (IsCollision(sphere1, sphere2)) {
+		if (IsCollision(sphere1, plane)) {
 			color = RED;
 		}
 		else {
@@ -86,7 +86,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		DrawGrid(viewProjectionMatrix, viewportMatrix);
 		/*DrawSphere(sphere1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);*/
 		DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
-
+		DrawPlane(plane, viewProjectionMatrix, viewportMatrix, WHITE);
 
 		///
 		/// ↑描画処理ここまで
