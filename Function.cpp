@@ -574,29 +574,44 @@ Matrix4x4 Inverse(const Matrix4x4& m) {
 Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2) {
 	Matrix4x4 resultMatrix = {};
 
-	resultMatrix.m[0][0] = m1.m[0][0] * m2.m[0][0] + m1.m[0][1] * m2.m[1][0] + m1.m[0][2] * m2.m[2][0] + m1.m[0][3] * m2.m[3][0];
-	resultMatrix.m[0][1] = m1.m[0][0] * m2.m[0][1] + m1.m[0][1] * m2.m[1][1] + m1.m[0][2] * m2.m[2][1] + m1.m[0][3] * m2.m[3][1];
-	resultMatrix.m[0][2] = m1.m[0][0] * m2.m[0][2] + m1.m[0][1] * m2.m[1][2] + m1.m[0][2] * m2.m[2][2] + m1.m[0][3] * m2.m[3][2];
-	resultMatrix.m[0][3] = m1.m[0][0] * m2.m[0][3] + m1.m[0][1] * m2.m[1][3] + m1.m[0][2] * m2.m[2][3] + m1.m[0][3] * m2.m[3][3];
+	resultMatrix.m[0][0] = m1.m[0][0] * m2.m[0][0] + m1.m[0][1] * m2.m[1][0] +
+		m1.m[0][2] * m2.m[2][0] + m1.m[0][3] * m2.m[3][0];
+	resultMatrix.m[0][1] = m1.m[0][0] * m2.m[0][1] + m1.m[0][1] * m2.m[1][1] +
+		m1.m[0][2] * m2.m[2][1] + m1.m[0][3] * m2.m[3][1];
+	resultMatrix.m[0][2] = m1.m[0][0] * m2.m[0][2] + m1.m[0][1] * m2.m[1][2] +
+		m1.m[0][2] * m2.m[2][2] + m1.m[0][3] * m2.m[3][2];
+	resultMatrix.m[0][3] = m1.m[0][0] * m2.m[0][3] + m1.m[0][1] * m2.m[1][3] +
+		m1.m[0][2] * m2.m[2][3] + m1.m[0][3] * m2.m[3][3];
 
-	resultMatrix.m[1][0] = m1.m[1][0] * m2.m[0][0] + m1.m[1][1] * m2.m[1][0] + m1.m[1][2] * m2.m[2][0] + m1.m[1][3] * m2.m[3][0];
-	resultMatrix.m[1][1] = m1.m[1][0] * m2.m[0][1] + m1.m[1][1] * m2.m[1][1] + m1.m[1][2] * m2.m[2][1] + m1.m[1][3] * m2.m[3][1];
-	resultMatrix.m[1][2] = m1.m[1][0] * m2.m[0][2] + m1.m[1][1] * m2.m[1][2] + m1.m[1][2] * m2.m[2][2] + m1.m[1][3] * m2.m[3][2];
-	resultMatrix.m[1][3] = m1.m[1][0] * m2.m[0][3] + m1.m[1][1] * m2.m[1][3] + m1.m[1][2] * m2.m[2][3] + m1.m[1][3] * m2.m[3][3];
+	resultMatrix.m[1][0] = m1.m[1][0] * m2.m[0][0] + m1.m[1][1] * m2.m[1][0] +
+		m1.m[1][2] * m2.m[2][0] + m1.m[1][3] * m2.m[3][0];
+	resultMatrix.m[1][1] = m1.m[1][0] * m2.m[0][1] + m1.m[1][1] * m2.m[1][1] +
+		m1.m[1][2] * m2.m[2][1] + m1.m[1][3] * m2.m[3][1];
+	resultMatrix.m[1][2] = m1.m[1][0] * m2.m[0][2] + m1.m[1][1] * m2.m[1][2] +
+		m1.m[1][2] * m2.m[2][2] + m1.m[1][3] * m2.m[3][2];
+	resultMatrix.m[1][3] = m1.m[1][0] * m2.m[0][3] + m1.m[1][1] * m2.m[1][3] +
+		m1.m[1][2] * m2.m[2][3] + m1.m[1][3] * m2.m[3][3];
 
-	resultMatrix.m[2][0] = m1.m[2][0] * m2.m[0][0] + m1.m[2][1] * m2.m[1][0] + m1.m[2][2] * m2.m[2][0] + m1.m[2][3] * m2.m[3][0];
-	resultMatrix.m[2][1] = m1.m[2][0] * m2.m[0][1] + m1.m[2][1] * m2.m[1][1] + m1.m[2][2] * m2.m[2][1] + m1.m[2][3] * m2.m[3][1];
-	resultMatrix.m[2][2] = m1.m[2][0] * m2.m[0][2] + m1.m[2][1] * m2.m[1][2] + m1.m[2][2] * m2.m[2][2] + m1.m[2][3] * m2.m[3][2];
-	resultMatrix.m[2][3] = m1.m[2][0] * m2.m[0][3] + m1.m[2][1] * m2.m[1][3] + m1.m[2][2] * m2.m[2][3] + m1.m[2][3] * m2.m[3][3];
+	resultMatrix.m[2][0] = m1.m[2][0] * m2.m[0][0] + m1.m[2][1] * m2.m[1][0] +
+		m1.m[2][2] * m2.m[2][0] + m1.m[2][3] * m2.m[3][0];
+	resultMatrix.m[2][1] = m1.m[2][0] * m2.m[0][1] + m1.m[2][1] * m2.m[1][1] +
+		m1.m[2][2] * m2.m[2][1] + m1.m[2][3] * m2.m[3][1];
+	resultMatrix.m[2][2] = m1.m[2][0] * m2.m[0][2] + m1.m[2][1] * m2.m[1][2] +
+		m1.m[2][2] * m2.m[2][2] + m1.m[2][3] * m2.m[3][2];
+	resultMatrix.m[2][3] = m1.m[2][0] * m2.m[0][3] + m1.m[2][1] * m2.m[1][3] +
+		m1.m[2][2] * m2.m[2][3] + m1.m[2][3] * m2.m[3][3];
 
-	resultMatrix.m[3][0] = m1.m[3][0] * m2.m[0][0] + m1.m[3][1] * m2.m[1][0] + m1.m[3][2] * m2.m[2][0] + m1.m[3][3] * m2.m[3][0];
-	resultMatrix.m[3][1] = m1.m[3][0] * m2.m[0][1] + m1.m[3][1] * m2.m[1][1] + m1.m[3][2] * m2.m[2][1] + m1.m[3][3] * m2.m[3][1];
-	resultMatrix.m[3][2] = m1.m[3][0] * m2.m[0][2] + m1.m[3][1] * m2.m[1][2] + m1.m[3][2] * m2.m[2][2] + m1.m[3][3] * m2.m[3][2];
-	resultMatrix.m[3][3] = m1.m[3][0] * m2.m[0][3] + m1.m[3][1] * m2.m[1][3] + m1.m[3][2] * m2.m[2][3] + m1.m[3][3] * m2.m[3][3];
+	resultMatrix.m[3][0] = m1.m[3][0] * m2.m[0][0] + m1.m[3][1] * m2.m[1][0] +
+		m1.m[3][2] * m2.m[2][0] + m1.m[3][3] * m2.m[3][0];
+	resultMatrix.m[3][1] = m1.m[3][0] * m2.m[0][1] + m1.m[3][1] * m2.m[1][1] +
+		m1.m[3][2] * m2.m[2][1] + m1.m[3][3] * m2.m[3][1];
+	resultMatrix.m[3][2] = m1.m[3][0] * m2.m[0][2] + m1.m[3][1] * m2.m[1][2] +
+		m1.m[3][2] * m2.m[2][2] + m1.m[3][3] * m2.m[3][2];
+	resultMatrix.m[3][3] = m1.m[3][0] * m2.m[0][3] + m1.m[3][1] * m2.m[1][3] +
+		m1.m[3][2] * m2.m[2][3] + m1.m[3][3] * m2.m[3][3];
 
 	return resultMatrix;
 }
-
 void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix) {
 	const float kGridHalfWidth = 2.0f;											//Gridの半分の幅
 	const uint32_t kSubdivision = 10;											//分割数
@@ -761,11 +776,14 @@ Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
 }
 
 bool IsCollision(const Sphere& sphere, const Plane& plane) {
-	Vector3 tmp = Multiply(plane.normal, sphere.center);
-	tmp = { tmp.x - plane.distance, tmp.y - plane.distance, tmp.z - plane.distance };
-	float distance = Length(Normalize(tmp));
+	// 平面上の点と球の中心との符号付き距離を計算
+	float distanceFromPlane = plane.normal.x * sphere.center.x +
+		plane.normal.y * sphere.center.y +
+		plane.normal.z * sphere.center.z +
+		plane.distance;
 
-	if (distance <= sphere.radius) {
+	// 距離が球の半径より小さい場合、球は平面と交差していると判定
+	if (std::abs(distanceFromPlane) <= sphere.radius) {
 		return true;
 	}
 	else {
@@ -794,8 +812,8 @@ void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const 
 		Vector3 point = Add(center, extend);
 		points[index] = Transform(Transform(point, viewProjectionMatrix), viewportMatrix);
 	}
-	Novice::DrawLine(points[0].x, points[0].y, points[1].x, points[1].y, color);
-	Novice::DrawLine(points[1].x, points[1].y, points[2].x, points[2].y, color);
-	Novice::DrawLine(points[2].x, points[2].y, points[3].x, points[3].y, color);
+	Novice::DrawLine(points[0].x, points[0].y, points[2].x, points[2].y, color);
+	Novice::DrawLine(points[1].x, points[1].y, points[3].x, points[3].y, color);
+	Novice::DrawLine(points[2].x, points[2].y, points[1].x, points[1].y, color);
 	Novice::DrawLine(points[3].x, points[3].y, points[0].x, points[0].y, color);
 }

@@ -28,7 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	sphere2.center = { 0.5f, 0.5f, 0.0f };
 	sphere2.radius = 1.0f;
 
-	Plane plane;
+	Plane plane = { {0,1,0},1 };
 
 	unsigned int color = WHITE;
 	/*const int WhiteTexture = Novice::LoadTexture("white1x1.png");*/
@@ -71,6 +71,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		ImGui::DragFloat3("SphereCenter2", &sphere2.center.x, 0.01f);
 		ImGui::DragFloat("SphereRadius2", &sphere2.radius, 0.01f);
 		ImGui::DragFloat3("Plane.Normal", &plane.normal.x, 0.01f);
+		plane.normal = Normalize(plane.normal);
 		ImGui::End();
 
 
@@ -86,7 +87,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		DrawGrid(viewProjectionMatrix, viewportMatrix);
 		/*DrawSphere(sphere1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);*/
 		DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
-		DrawPlane(plane, viewProjectionMatrix, viewportMatrix, WHITE);
+		DrawPlane(plane, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
 
 		///
 		/// ↑描画処理ここまで
