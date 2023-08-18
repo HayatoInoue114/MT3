@@ -776,18 +776,14 @@ Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
 }
 
 bool IsCollision(const Sphere& sphere, const Plane& plane) {
-	// 平面上の点と球の中心との符号付き距離を計算
-	float distanceFromPlane = plane.normal.x * sphere.center.x +
-		plane.normal.y * sphere.center.y +
-		plane.normal.z * sphere.center.z +
-		plane.distance;
+	//絶対値で距離を求める
+	float distance = fabs(Dot(plane.normal, sphere.center) - plane.distance);
 
-	// 距離が球の半径より小さい場合、球は平面と交差していると判定
-	if (std::abs(distanceFromPlane) <= sphere.radius) {
-		return true;
+	if (distance >= sphere.radius) {
+		return false;//衝突していない
 	}
-	else {
-		return false;
+	else if (distance <= sphere.radius) {
+		return true;//衝突している
 	}
 }
 
@@ -817,3 +813,33 @@ void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const 
 	Novice::DrawLine(points[2].x, points[2].y, points[1].x, points[1].y, color);
 	Novice::DrawLine(points[3].x, points[3].y, points[0].x, points[0].y, color);
 }
+
+bool IsCollision(const Segment& segment, const Plane& plane) {
+	//垂直判定を行うために、法線と線の内積を求める
+	float dot = Dot(plane.normal, segment.diff);
+
+	// 垂直=平行であるので、衝突しているはずがない
+	if (dot == 0.0f) {
+		return false;
+	}
+
+	// tを求める
+	float t = (plane.distance - Dot(segment.origin, plane.normal)) / dot;
+	// tの値と線の種類によって衝突しているかを判断する
+	if (t < 0 || t > 1.0f) {
+		return false;
+	}
+	return true;
+}
+
+void DrawSegment(const Segment& segment, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
+	Vector3 start = segment.origin;
+	Vector3 end = { segment.origin.x + segment.diff.x, segment.origin.y + segment.diff.y, segment.origin.z + segment.diff.z };
+
+	Vector3 points[2];
+	points[0] = Transform(Transform(start, viewProjectionMatrix), viewportMatrix);
+	points[1] = Transform(Transform(end, viewProjectionMatrix), viewportMatrix);
+
+	Novice::DrawLine(points[0].x, points[0].y, points[1].x, points[1].y, color);
+}
+
