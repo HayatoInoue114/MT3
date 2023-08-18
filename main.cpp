@@ -72,7 +72,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Matrix4x4 viewProjectionMatrix = Multiply(viewMatrix, projectionMatrix);
 		Matrix4x4 viewportMatrix = MakeViewportMatrix(0, 0, float(kWindowWidth), float(kWindowHeight), 0.0f, 1.0f);
 
-		if (IsCollision(aabb1, aabb2)) {
+		if (IsCollision(aabb1, sphere2)) {
 			color = RED;
 		}
 		else {
@@ -84,12 +84,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		ImGui::DragFloat3("CameraRotate", &cameraRotate.x, 0.01f);
 		ImGui::DragFloat3("AABB1min", &aabb1.min.x, 0.01f);
 		ImGui::DragFloat3("AABB1max", &aabb1.max.x, 0.01f);
-		ImGui::DragFloat3("AABB2min", &aabb2.min.x, 0.01f);
-		ImGui::DragFloat3("AABB2max", &aabb2.max.x, 0.01f);
+		/*ImGui::DragFloat3("AABB2min", &aabb2.min.x, 0.01f);
+		ImGui::DragFloat3("AABB2max", &aabb2.max.x, 0.01f);*/
 		/*ImGui::DragFloat3("SphereCenter1", &sphere1.center.x, 0.01f);
 		ImGui::DragFloat("SphereRadius1", &sphere1.radius, 0.01f);*/
-		/*ImGui::DragFloat3("SphereCenter2", &sphere2.center.x, 0.01f);
-		ImGui::DragFloat("SphereRadius2", &sphere2.radius, 0.01f);*/
+		ImGui::DragFloat3("SphereCenter2", &sphere2.center.x, 0.01f);
+		ImGui::DragFloat("SphereRadius2", &sphere2.radius, 0.01f);
 		/*ImGui::DragFloat3("Triangle.vertices0", &triangle.vertices[0].x, 0.01f);
 		ImGui::DragFloat3("Triangle.vertices1", &triangle.vertices[1].x, 0.01f);
 		ImGui::DragFloat3("Triangle.vertices2", &triangle.vertices[2].x, 0.01f);*/
@@ -109,12 +109,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		
 		DrawGrid(viewProjectionMatrix, viewportMatrix);
-		//DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
+		DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
 		//DrawSegment(segment, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
 		//DrawPlane(plane, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
 		//DrawTriange(triangle, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
-		DrawAABB(aabb1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
-		DrawAABB(aabb2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
+		DrawAABB(aabb1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
+		//DrawAABB(aabb2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
 
 		///
 		/// ↑描画処理ここまで
