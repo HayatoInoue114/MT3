@@ -779,7 +779,6 @@ bool IsCollision(const Sphere& sphere, const Plane& plane) {
 	//絶対値で距離を求める
 	float distance = fabs(Dot(plane.normal, sphere.center) - plane.distance);
 
-	
 	if (distance >= sphere.radius) {
 		return false;//衝突していない
 	}
