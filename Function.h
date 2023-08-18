@@ -226,3 +226,13 @@ struct Triangle
 bool IsCollision(const Triangle& triange, const Segment& segment);
 
 void DrawTriange(const Triangle& triangle, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
+
+struct AABB
+{
+	Vector3 min; //!< 最小点
+	Vector3 max; //!< 最大点
+};
+
+bool IsCollision(const AABB& aabb1, const AABB& aabb2);
+
+void DrawAABB(const AABB& aabb, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
