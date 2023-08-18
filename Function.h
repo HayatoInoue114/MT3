@@ -1,4 +1,14 @@
 #pragma once
+#include<Novice.h>
+#include<math.h>
+#include<assert.h>
+#include<cmath>
+
+#define M_PI 3.14f
+
+const int kWindowWidth = 1280;
+const int kWindowHeight = 720;
+
 
 struct Matrix2x2
 {
@@ -105,6 +115,12 @@ float Length(const Vector3& v);
 //正規化
 Vector3 Normalize(const Vector3& v);
 
+//Vector3同士の掛け算
+Vector3 Multiply(const Vector3& v1, const Vector3& v2);
+
+//Clamp
+Vector3 Clamp(const Vector3& v1,const Vector3& min, const Vector3& max);
+
 static const int kColumnWidth = 60;
 void VectorScreenPrintf(int x, int y, const Vector3& vector, const char* label);
 
@@ -153,3 +169,47 @@ Vector3 Transform(const Vector3& num, const Matrix4x4& m);
 float InverseNum(const Matrix4x4& m, int a, int b, int c, int d, int e, int f, int g, int h);
 float InverseNum2(const Matrix4x4& m, int a, int b, int c, int d, int e, int f);
 
+void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix);
+
+struct Sphere
+{
+	Vector3 center;
+	float radius;
+};
+
+bool IsCollision(const Sphere& s1, const Sphere& s2);
+
+void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
+
+struct Line
+{
+	Vector3 origin; //!< 始点
+	Vector3 diff; //!< 終点への差分ベクトル
+};
+
+struct Ray
+{
+	Vector3 origin; //!< 始点
+	Vector3 diff; //!< 終点への差分ベクトル
+};
+
+struct Segment
+{
+	Vector3 origin; //!< 始点
+	Vector3 diff; //!< 終点への差分ベクトル
+};
+
+Vector3 Project(const Vector3& v1, const Vector3& v2);
+Vector3 ClosestPoint(const Vector3& point, const Segment& segment);
+
+struct Plane 
+{
+	Vector3 normal; //!< 法線
+	float distance; //!< 距離
+};
+
+bool IsCollision(const Sphere& sphere, const Plane& plane);
+
+Vector3 Perpendicular(const Vector3& vector);
+
+void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);

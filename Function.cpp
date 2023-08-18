@@ -1,8 +1,4 @@
 #include"Function.h"
-#include<Novice.h>
-#include<math.h>
-#include<assert.h>
-#include<cmath>
 
 
 void MatrixScreenPrintf(int x, int y, Matrix2x2 matrix) {
@@ -278,6 +274,39 @@ Vector3 Normalize(const Vector3& v) {
 	return num;
 }
 
+Vector3 Multiply(const Vector3& v1, const Vector3& v2) {
+	Vector3 result = {
+		v1.x * v2.x,v1.y * v2.y,v1.z * v2.z
+	};
+
+	return result;
+}
+
+Vector3 Clamp(const Vector3& v1, const Vector3& min, const Vector3& max) {
+	Vector3 result = v1;
+	if (result.x < min.x) {
+		result.x = min.x;
+	}
+	if (result.x > max.x) {
+		result.x = max.x;
+	}
+
+	if (result.y < min.y) {
+		result.y = min.y;
+	}
+	if (result.y > max.y) {
+		result.y = max.y;
+	}
+
+	if (result.z < min.z) {
+		result.z = min.z;
+	}
+	if (result.z > max.z) {
+		result.z = max.z;
+	}
+	return result;
+}
+
 void VectorScreenPrintf(int x, int y, const Vector3& vector, const char* label) {
 	Novice::ScreenPrintf(x, y, "%.02f", vector.x);
 	Novice::ScreenPrintf(x + kColumnWidth, y, "%.02f", vector.y);
@@ -545,25 +574,246 @@ Matrix4x4 Inverse(const Matrix4x4& m) {
 Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2) {
 	Matrix4x4 resultMatrix = {};
 
-	resultMatrix.m[0][0] = m1.m[0][0] * m2.m[0][0] + m1.m[0][1] * m2.m[1][0] + m1.m[0][2] * m2.m[2][0] + m1.m[0][3] * m2.m[3][0];
-	resultMatrix.m[0][1] = m1.m[0][0] * m2.m[0][1] + m1.m[0][1] * m2.m[1][1] + m1.m[0][2] * m2.m[2][1] + m1.m[0][3] * m2.m[3][1];
-	resultMatrix.m[0][2] = m1.m[0][0] * m2.m[0][2] + m1.m[0][1] * m2.m[1][2] + m1.m[0][2] * m2.m[2][2] + m1.m[0][3] * m2.m[3][2];
-	resultMatrix.m[0][3] = m1.m[0][0] * m2.m[0][3] + m1.m[0][1] * m2.m[1][3] + m1.m[0][2] * m2.m[2][3] + m1.m[0][3] * m2.m[3][3];
+	resultMatrix.m[0][0] = m1.m[0][0] * m2.m[0][0] + m1.m[0][1] * m2.m[1][0] +
+		m1.m[0][2] * m2.m[2][0] + m1.m[0][3] * m2.m[3][0];
+	resultMatrix.m[0][1] = m1.m[0][0] * m2.m[0][1] + m1.m[0][1] * m2.m[1][1] +
+		m1.m[0][2] * m2.m[2][1] + m1.m[0][3] * m2.m[3][1];
+	resultMatrix.m[0][2] = m1.m[0][0] * m2.m[0][2] + m1.m[0][1] * m2.m[1][2] +
+		m1.m[0][2] * m2.m[2][2] + m1.m[0][3] * m2.m[3][2];
+	resultMatrix.m[0][3] = m1.m[0][0] * m2.m[0][3] + m1.m[0][1] * m2.m[1][3] +
+		m1.m[0][2] * m2.m[2][3] + m1.m[0][3] * m2.m[3][3];
 
-	resultMatrix.m[1][0] = m1.m[1][0] * m2.m[0][0] + m1.m[1][1] * m2.m[1][0] + m1.m[1][2] * m2.m[2][0] + m1.m[1][3] * m2.m[3][0];
-	resultMatrix.m[1][1] = m1.m[1][0] * m2.m[0][1] + m1.m[1][1] * m2.m[1][1] + m1.m[1][2] * m2.m[2][1] + m1.m[1][3] * m2.m[3][1];
-	resultMatrix.m[1][2] = m1.m[1][0] * m2.m[0][2] + m1.m[1][1] * m2.m[1][2] + m1.m[1][2] * m2.m[2][2] + m1.m[1][3] * m2.m[3][2];
-	resultMatrix.m[1][3] = m1.m[1][0] * m2.m[0][3] + m1.m[1][1] * m2.m[1][3] + m1.m[1][2] * m2.m[2][3] + m1.m[1][3] * m2.m[3][3];
+	resultMatrix.m[1][0] = m1.m[1][0] * m2.m[0][0] + m1.m[1][1] * m2.m[1][0] +
+		m1.m[1][2] * m2.m[2][0] + m1.m[1][3] * m2.m[3][0];
+	resultMatrix.m[1][1] = m1.m[1][0] * m2.m[0][1] + m1.m[1][1] * m2.m[1][1] +
+		m1.m[1][2] * m2.m[2][1] + m1.m[1][3] * m2.m[3][1];
+	resultMatrix.m[1][2] = m1.m[1][0] * m2.m[0][2] + m1.m[1][1] * m2.m[1][2] +
+		m1.m[1][2] * m2.m[2][2] + m1.m[1][3] * m2.m[3][2];
+	resultMatrix.m[1][3] = m1.m[1][0] * m2.m[0][3] + m1.m[1][1] * m2.m[1][3] +
+		m1.m[1][2] * m2.m[2][3] + m1.m[1][3] * m2.m[3][3];
 
-	resultMatrix.m[2][0] = m1.m[2][0] * m2.m[0][0] + m1.m[2][1] * m2.m[1][0] + m1.m[2][2] * m2.m[2][0] + m1.m[2][3] * m2.m[3][0];
-	resultMatrix.m[2][1] = m1.m[2][0] * m2.m[0][1] + m1.m[2][1] * m2.m[1][1] + m1.m[2][2] * m2.m[2][1] + m1.m[2][3] * m2.m[3][1];
-	resultMatrix.m[2][2] = m1.m[2][0] * m2.m[0][2] + m1.m[2][1] * m2.m[1][2] + m1.m[2][2] * m2.m[2][2] + m1.m[2][3] * m2.m[3][2];
-	resultMatrix.m[2][3] = m1.m[2][0] * m2.m[0][3] + m1.m[2][1] * m2.m[1][3] + m1.m[2][2] * m2.m[2][3] + m1.m[2][3] * m2.m[3][3];
+	resultMatrix.m[2][0] = m1.m[2][0] * m2.m[0][0] + m1.m[2][1] * m2.m[1][0] +
+		m1.m[2][2] * m2.m[2][0] + m1.m[2][3] * m2.m[3][0];
+	resultMatrix.m[2][1] = m1.m[2][0] * m2.m[0][1] + m1.m[2][1] * m2.m[1][1] +
+		m1.m[2][2] * m2.m[2][1] + m1.m[2][3] * m2.m[3][1];
+	resultMatrix.m[2][2] = m1.m[2][0] * m2.m[0][2] + m1.m[2][1] * m2.m[1][2] +
+		m1.m[2][2] * m2.m[2][2] + m1.m[2][3] * m2.m[3][2];
+	resultMatrix.m[2][3] = m1.m[2][0] * m2.m[0][3] + m1.m[2][1] * m2.m[1][3] +
+		m1.m[2][2] * m2.m[2][3] + m1.m[2][3] * m2.m[3][3];
 
-	resultMatrix.m[3][0] = m1.m[3][0] * m2.m[0][0] + m1.m[3][1] * m2.m[1][0] + m1.m[3][2] * m2.m[2][0] + m1.m[3][3] * m2.m[3][0];
-	resultMatrix.m[3][1] = m1.m[3][0] * m2.m[0][1] + m1.m[3][1] * m2.m[1][1] + m1.m[3][2] * m2.m[2][1] + m1.m[3][3] * m2.m[3][1];
-	resultMatrix.m[3][2] = m1.m[3][0] * m2.m[0][2] + m1.m[3][1] * m2.m[1][2] + m1.m[3][2] * m2.m[2][2] + m1.m[3][3] * m2.m[3][2];
-	resultMatrix.m[3][3] = m1.m[3][0] * m2.m[0][3] + m1.m[3][1] * m2.m[1][3] + m1.m[3][2] * m2.m[2][3] + m1.m[3][3] * m2.m[3][3];
+	resultMatrix.m[3][0] = m1.m[3][0] * m2.m[0][0] + m1.m[3][1] * m2.m[1][0] +
+		m1.m[3][2] * m2.m[2][0] + m1.m[3][3] * m2.m[3][0];
+	resultMatrix.m[3][1] = m1.m[3][0] * m2.m[0][1] + m1.m[3][1] * m2.m[1][1] +
+		m1.m[3][2] * m2.m[2][1] + m1.m[3][3] * m2.m[3][1];
+	resultMatrix.m[3][2] = m1.m[3][0] * m2.m[0][2] + m1.m[3][1] * m2.m[1][2] +
+		m1.m[3][2] * m2.m[2][2] + m1.m[3][3] * m2.m[3][2];
+	resultMatrix.m[3][3] = m1.m[3][0] * m2.m[0][3] + m1.m[3][1] * m2.m[1][3] +
+		m1.m[3][2] * m2.m[2][3] + m1.m[3][3] * m2.m[3][3];
 
 	return resultMatrix;
+}
+void DrawGrid(const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix) {
+	const float kGridHalfWidth = 2.0f;											//Gridの半分の幅
+	const uint32_t kSubdivision = 10;											//分割数
+	const float kGridEvery = (kGridHalfWidth * 2.0f) / float(kSubdivision);	//1つ分の長さ
+
+	//奥から手前への線を順に引いていく
+	for (uint32_t xIndex = 0; xIndex <= kSubdivision; ++xIndex) {
+		Matrix4x4 worldMatrix = MakeAffineMatrix({ 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, float(5 - int(xIndex)) * kGridEvery });
+
+		Matrix4x4 worldViewProjectionMatrix = Multiply(worldMatrix, viewProjectionMatrix);
+
+		Vector3 localVertices[2] = { {-2, 0, 0}, {2, 0, 0} };
+		Vector3 screenVertices[2]{};
+		for (uint32_t i = 0; i < 2; ++i) {
+			//NDCまで変換。Transformを使うと同時座標系->デカルト座標系の処理が行われ、結果的にZDvivideが行われることになる
+			Vector3 ndcVertex = Transform(localVertices[i], worldViewProjectionMatrix);
+			//viewport変換を使ってScreen空間へ
+			screenVertices[i] = Transform(ndcVertex, viewportMatrix);
+		}
+		if (xIndex != 5) {
+			Novice::DrawLine((int)screenVertices[0].x, (int)screenVertices[0].y, (int)screenVertices[1].x, (int)screenVertices[1].y, 0xAAAAAAFF);
+		}
+		else {
+			Novice::DrawLine((int)screenVertices[0].x, (int)screenVertices[0].y, (int)screenVertices[1].x, (int)screenVertices[1].y, 0x222222FF);
+		}
+	}
+	//左からも線を引いていく
+	for (uint32_t zIndex = 0; zIndex <= kSubdivision; ++zIndex) {
+		Matrix4x4 worldMatrix = MakeAffineMatrix({ 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, { float(5 - int(zIndex)) * kGridEvery, 0.0f, 0.0f });
+
+		Matrix4x4 worldViewProjectionMatrix = Multiply(worldMatrix, viewProjectionMatrix);
+
+		Vector3 localVertices[2] = { {0, 0, -2}, {0, 0, 2} };
+		Vector3 screenVertices[2]{};
+		for (uint32_t i = 0; i < 2; ++i) {
+			//NDCまで変換。Transformを使うと同時座標系->デカルト座標系の処理が行われ、結果的にZDvivideが行われることになる
+			Vector3 ndcVertex = Transform(localVertices[i], worldViewProjectionMatrix);
+			//viewport変換を使ってScreen空間へ
+			screenVertices[i] = Transform(ndcVertex, viewportMatrix);
+		}
+		if (zIndex != 5) {
+			Novice::DrawLine((int)screenVertices[0].x, (int)screenVertices[0].y, (int)screenVertices[1].x, (int)screenVertices[1].y, 0xAAAAAAFF);
+		}
+		else {
+			Novice::DrawLine((int)screenVertices[0].x, (int)screenVertices[0].y, (int)screenVertices[1].x, (int)screenVertices[1].y, 0x222222FF);
+		}
+	}
+}
+
+bool IsCollision(const Sphere& s1, const Sphere& s2) {
+	float distance = Length(Subtract(s2.center, s1.center));
+
+	if (distance <= s1.radius + s2.radius) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void DrawSphere(const Sphere& sphere, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
+	const uint32_t kSubdivision = 16;
+	const float kLonEvery = (2 * M_PI) / kSubdivision;
+	const float kLatEvery = (M_PI) / kSubdivision;
+	//緯度の方向に分割 -π/1 ～ π/2
+	for (uint32_t latIndex = 0; latIndex < kSubdivision; ++latIndex) {
+		float lat = -M_PI / 2.0f + kLatEvery * latIndex; //現在の緯度
+		//経度の方向に分割 0～2π
+		for (uint32_t lonIndex = 0; lonIndex < kSubdivision; ++lonIndex) {
+			float lon = lonIndex * kLonEvery;
+			//world座標系でのa, b, cを求める
+			Vector3 a, b, c;
+			a = { std::cos(lat) * std::cos(lon),
+				std::sin(lat),
+				std::cos(lat) * std::sin(lon) };
+
+			b = { std::cos(lat + kLatEvery) * std::cos(lon),
+				std::sin(lat + kLatEvery),
+				std::cos(lat + kLatEvery) * std::sin(lon) };
+
+			c = { std::cos(lat) * std::cos(lon + kLonEvery),
+				std::sin(lat),
+				std::cos(lat) * std::sin(lon + kLonEvery) };
+
+			a.x *= sphere.radius;
+			a.y *= sphere.radius;
+			a.z *= sphere.radius;
+
+			b.x *= sphere.radius;
+			b.y *= sphere.radius;
+			b.z *= sphere.radius;
+
+			c.x *= sphere.radius;
+			c.y *= sphere.radius;
+			c.z *= sphere.radius;
+
+			a.x += sphere.center.x;
+			a.y += sphere.center.y;
+			a.z += sphere.center.z;
+
+			b.x += sphere.center.x;
+			b.y += sphere.center.y;
+			b.z += sphere.center.z;
+
+			c.x += sphere.center.x;
+			c.y += sphere.center.y;
+			c.z += sphere.center.z;
+
+			Matrix4x4 worldMatrixA = MakeAffineMatrix({ 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, a);
+
+			Matrix4x4 worldViewProjectionMatrixA = Multiply(worldMatrixA, viewProjectionMatrix);
+
+			Matrix4x4 worldMatrixB = MakeAffineMatrix({ 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, b);
+
+			Matrix4x4 worldViewProjectionMatrixB = Multiply(worldMatrixB, viewProjectionMatrix);
+
+			Matrix4x4 worldMatrixC = MakeAffineMatrix({ 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, c);
+
+			Matrix4x4 worldViewProjectionMatrixC = Multiply(worldMatrixC, viewProjectionMatrix);
+
+			Vector3 screenVertices[3]{};
+
+			//NDCまで変換。Transformを使うと同時座標系->デカルト座標系の処理が行われ、結果的にZDvivideが行われることになる
+			Vector3 ndcVertexA = Transform({ 0, 0, 0 }, worldViewProjectionMatrixA);
+			//viewport変換を使ってScreen空間へ
+			screenVertices[0] = Transform(ndcVertexA, viewportMatrix);
+
+			//NDCまで変換。Transformを使うと同時座標系->デカルト座標系の処理が行われ、結果的にZDvivideが行われることになる
+			Vector3 ndcVertexB = Transform({ 0, 0, 0 }, worldViewProjectionMatrixB);
+			//viewport変換を使ってScreen空間へ
+			screenVertices[1] = Transform(ndcVertexB, viewportMatrix);
+
+			//NDCまで変換。Transformを使うと同時座標系->デカルト座標系の処理が行われ、結果的にZDvivideが行われることになる
+			Vector3 ndcVertexC = Transform({ 0, 0, 0 }, worldViewProjectionMatrixC);
+			//viewport変換を使ってScreen空間へ
+			screenVertices[2] = Transform(ndcVertexC, viewportMatrix);
+
+			Novice::DrawLine(
+				(int)screenVertices[0].x, (int)screenVertices[0].y,
+				(int)screenVertices[1].x, (int)screenVertices[1].y,
+				color);
+
+			Novice::DrawLine(
+				(int)screenVertices[0].x, (int)screenVertices[0].y,
+				(int)screenVertices[2].x, (int)screenVertices[2].y,
+				color);
+		}
+	}
+}
+
+Vector3 Project(const Vector3& v1, const Vector3& v2) {
+	Vector3 normalizeV2 = Normalize(v2);
+	Vector3 result = Multiply(normalizeV2, Multiply(v1, normalizeV2));
+	return result;
+}
+
+Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
+	Vector3 result = Project(Subtract(point, segment.origin), segment.diff);
+	Vector3 cp = Add(segment.origin, result);
+
+	return cp;
+}
+
+bool IsCollision(const Sphere& sphere, const Plane& plane) {
+	// 平面上の点と球の中心との符号付き距離を計算
+	float distanceFromPlane = plane.normal.x * sphere.center.x +
+		plane.normal.y * sphere.center.y +
+		plane.normal.z * sphere.center.z +
+		plane.distance;
+
+	// 距離が球の半径より小さい場合、球は平面と交差していると判定
+	if (std::abs(distanceFromPlane) <= sphere.radius) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+Vector3 Perpendicular(const Vector3& vector) {
+	if (vector.x != 0.0f || vector.y != 0.0f) {
+		return { -vector.y,vector.x,0.0f };
+	}
+	return{ 0.0f,-vector.z,vector.y };
+}
+
+void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
+	Vector3 center = Multiply(plane.distance, plane.normal); //1
+	Vector3 perpendiculars[4];
+	perpendiculars[0] = Normalize(Perpendicular(plane.normal)); //2
+	perpendiculars[1] = { -perpendiculars[0].x - perpendiculars[0].y, -perpendiculars[0].z }; //3
+	perpendiculars[2] = Cross(plane.normal, perpendiculars[0]); //4
+	perpendiculars[3] = { -perpendiculars[2].x,-perpendiculars[2].y ,-perpendiculars[2].z }; //5
+	//6
+	Vector3 points[4];
+	for (int32_t index = 0; index < 4; ++index) {
+		Vector3 extend = Multiply(2.0f, perpendiculars[index]);
+		Vector3 point = Add(center, extend);
+		points[index] = Transform(Transform(point, viewProjectionMatrix), viewportMatrix);
+	}
+	Novice::DrawLine(points[0].x, points[0].y, points[2].x, points[2].y, color);
+	Novice::DrawLine(points[1].x, points[1].y, points[3].x, points[3].y, color);
+	Novice::DrawLine(points[2].x, points[2].y, points[1].x, points[1].y, color);
+	Novice::DrawLine(points[3].x, points[3].y, points[0].x, points[0].y, color);
 }
