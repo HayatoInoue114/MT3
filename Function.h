@@ -217,3 +217,12 @@ void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const 
 bool IsCollision(const Segment& segment, const Plane& plane);
 
 void DrawSegment(const Segment& segment, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
+
+struct Triangle
+{
+	Vector3 vertices[3]; //!<頂点
+};
+
+bool IsCollision(const Triangle& triange, const Segment& segment);
+
+void DrawTriange(const Triangle& triangle, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);

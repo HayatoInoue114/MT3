@@ -843,3 +843,74 @@ void DrawSegment(const Segment& segment, const Matrix4x4& viewProjectionMatrix, 
 	Novice::DrawLine(points[0].x, points[0].y, points[1].x, points[1].y, color);
 }
 
+
+bool IsCollision(const Triangle& triangle, const Segment& segment) {
+	Plane plane{};
+	plane.normal = Normalize(
+		Cross(
+			Subtract(triangle.vertices[1], triangle.vertices[0]),
+			Subtract(triangle.vertices[2], triangle.vertices[1])
+		)
+	);
+	plane.distance = Dot(triangle.vertices[0], plane.normal);
+
+	// 垂直な判定をとるために法線と線の内積をとる
+	float dot = Dot(plane.normal, segment.diff);
+
+	// 垂直な場合は平行であるため衝突はしていない
+	if (dot == 0.0f) {
+		return false;
+	}
+
+	// tを求める
+	float t = (plane.distance - Dot(segment.origin, plane.normal)) / dot;
+
+	if (0.0f < t && 1.0f > t) {
+		// 衝突点pを求める
+		Vector3 p = Add(segment.origin, Multiply(t,segment.diff));
+
+		// 各辺を結んだベクトルと頂点と衝突点pを結んだベクトルのクロス積をとる
+		Vector3 cross01 = Cross(
+			Subtract(triangle.vertices[1], triangle.vertices[0]),
+			Subtract(p, triangle.vertices[1])
+		);
+
+		Vector3 cross12 = Cross(
+			Subtract(triangle.vertices[2], triangle.vertices[1]),
+			Subtract(p, triangle.vertices[2])
+		);
+
+		Vector3 cross20 = Cross(
+			Subtract(triangle.vertices[0], triangle.vertices[2]),
+			Subtract(p, triangle.vertices[0])
+		);
+
+		// 全ての小三角形のクロス積と法線が同じ方向なら衝突している
+		if (Dot(cross01, plane.normal) >= 0.0f &&
+			Dot(cross12, plane.normal) >= 0.0f &&
+			Dot(cross20, plane.normal) >= 0.0f) {
+
+			return true;
+
+		}
+
+	}
+	return false;
+}
+
+void DrawTriange(const Triangle& triangle, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
+	// 頂点座標
+	Vector3 screenVertices[3];
+	for (uint32_t i = 0; i < 3; ++i) {
+		Vector3 ndcVertex = Transform(triangle.vertices[i], viewProjectionMatrix);
+		screenVertices[i] = Transform(ndcVertex, viewportMatrix);
+	}
+
+	// 描画
+	Novice::DrawTriangle(
+		int(screenVertices[0].x), int(screenVertices[0].y),
+		int(screenVertices[1].x), int(screenVertices[1].y),
+		int(screenVertices[2].x), int(screenVertices[2].y),
+		color, kFillModeWireFrame
+	);
+}
