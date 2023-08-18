@@ -776,16 +776,14 @@ Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
 }
 
 bool IsCollision(const Sphere& sphere, const Plane& plane) {
-	float distanceFromPlane = plane.normal.x * sphere.center.x +
-		plane.normal.y * sphere.center.y +
-		plane.normal.z * sphere.center.z +
-		plane.distance;
+	//絶対値で距離を求める
+	float distance = fabs(Dot(plane.normal, sphere.center) - plane.distance);
 
-	if (distanceFromPlane <= sphere.radius) {
-		return true;
+	if (distance >= sphere.radius) {
+		return false;//衝突していない
 	}
-	else {
-		return false;
+	else if (distance <= sphere.radius) {
+		return true;//衝突している
 	}
 }
 
@@ -817,24 +815,21 @@ void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const 
 }
 
 bool IsCollision(const Segment& segment, const Plane& plane) {
-	// 線分の始点から平面までの距離を計算
-	float startDistance = plane.normal.x * segment.origin.x +
-		plane.normal.y * segment.origin.y +
-		plane.normal.z * segment.origin.z +
-		plane.distance;
+	//垂直判定を行うために、法線と線の内積を求める
+	float dot = Dot(plane.normal, segment.diff);
 
-	// 線分の終点から平面までの距離を計算
-	float endDistance = plane.normal.x * (segment.origin.x + segment.diff.x) +
-		plane.normal.y * (segment.origin.y + segment.diff.y) +
-		plane.normal.z * (segment.origin.z + segment.diff.z) +
-		plane.distance;
-
-	if ((startDistance < 0 && endDistance > 0) || (startDistance > 0 && endDistance < 0)) {
-		return true;
-	}
-	else {
+	// 垂直=平行であるので、衝突しているはずがない
+	if (dot == 0.0f) {
 		return false;
 	}
+
+	// tを求める
+	float t = (plane.distance - Dot(segment.origin, plane.normal)) / dot;
+	// tの値と線の種類によって衝突しているかを判断する
+	if (t < 0 || t > 1.0f) {
+		return false;
+	}
+	return true;
 }
 
 void DrawSegment(const Segment& segment, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
