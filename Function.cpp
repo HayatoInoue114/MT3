@@ -815,3 +815,36 @@ void DrawPlane(const Plane& plane, const Matrix4x4& viewProjectionMatrix, const 
 	Novice::DrawLine(points[2].x, points[2].y, points[1].x, points[1].y, color);
 	Novice::DrawLine(points[3].x, points[3].y, points[0].x, points[0].y, color);
 }
+
+bool IsCollision(const Segment& segment, const Plane& plane) {
+	// 線分の始点から平面までの距離を計算
+	float startDistance = plane.normal.x * segment.origin.x +
+		plane.normal.y * segment.origin.y +
+		plane.normal.z * segment.origin.z +
+		plane.distance;
+
+	// 線分の終点から平面までの距離を計算
+	float endDistance = plane.normal.x * (segment.origin.x + segment.diff.x) +
+		plane.normal.y * (segment.origin.y + segment.diff.y) +
+		plane.normal.z * (segment.origin.z + segment.diff.z) +
+		plane.distance;
+
+	if ((startDistance < 0 && endDistance > 0) || (startDistance > 0 && endDistance < 0)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void DrawSegment(const Segment& segment, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color) {
+	Vector3 start = segment.origin;
+	Vector3 end = { segment.origin.x + segment.diff.x, segment.origin.y + segment.diff.y, segment.origin.z + segment.diff.z };
+
+	Vector3 points[2];
+	points[0] = Transform(Transform(start, viewProjectionMatrix), viewportMatrix);
+	points[1] = Transform(Transform(end, viewProjectionMatrix), viewportMatrix);
+
+	Novice::DrawLine(points[0].x, points[0].y, points[1].x, points[1].y, color);
+}
+
