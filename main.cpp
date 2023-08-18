@@ -55,13 +55,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Matrix4x4 viewProjectionMatrix = Multiply(viewMatrix, projectionMatrix);
 		Matrix4x4 viewportMatrix = MakeViewportMatrix(0, 0, float(kWindowWidth), float(kWindowHeight), 0.0f, 1.0f);
 
-		if (IsCollision(sphere1, plane)) {
+		if (IsCollision(sphere2, plane)) {
 			color = RED;
 		}
 		else {
 			color = WHITE;
 		}
-
 
 		ImGui::Begin("Window");
 		ImGui::DragFloat3("CameraTranslate", &cameraTranslate.x, 0.01f);
@@ -74,8 +73,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		plane.normal = Normalize(plane.normal);
 		ImGui::End();
 
-
-		plane.normal = Normalize(plane.normal);
+		
 		///
 		/// ↑更新処理ここまで
 		///
@@ -85,7 +83,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		
 		DrawGrid(viewProjectionMatrix, viewportMatrix);
-		/*DrawSphere(sphere1, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);*/
 		DrawSphere(sphere2, Multiply(viewMatrix, projectionMatrix), viewportMatrix, color);
 		DrawPlane(plane, Multiply(viewMatrix, projectionMatrix), viewportMatrix, WHITE);
 

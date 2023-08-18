@@ -776,14 +776,12 @@ Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
 }
 
 bool IsCollision(const Sphere& sphere, const Plane& plane) {
-	// 平面上の点と球の中心との符号付き距離を計算
 	float distanceFromPlane = plane.normal.x * sphere.center.x +
 		plane.normal.y * sphere.center.y +
 		plane.normal.z * sphere.center.z +
 		plane.distance;
 
-	// 距離が球の半径より小さい場合、球は平面と交差していると判定
-	if (std::abs(distanceFromPlane) <= sphere.radius) {
+	if (distanceFromPlane <= sphere.radius) {
 		return true;
 	}
 	else {
