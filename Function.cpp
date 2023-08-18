@@ -776,16 +776,15 @@ Vector3 ClosestPoint(const Vector3& point, const Segment& segment) {
 }
 
 bool IsCollision(const Sphere& sphere, const Plane& plane) {
-	float distanceFromPlane = plane.normal.x * sphere.center.x +
-		plane.normal.y * sphere.center.y +
-		plane.normal.z * sphere.center.z +
-		plane.distance;
+	//絶対値で距離を求める
+	float distance = fabs(Dot(plane.normal, sphere.center) - plane.distance);
 
-	if (distanceFromPlane <= sphere.radius) {
-		return true;
+	
+	if (distance >= sphere.radius) {
+		return false;//衝突していない
 	}
-	else {
-		return false;
+	else if (distance <= sphere.radius) {
+		return true;//衝突している
 	}
 }
 
