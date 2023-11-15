@@ -973,3 +973,14 @@ bool IsCollision(const AABB& aabb, const Sphere& sphere) {
 	}
 	return false;
 }
+
+Matrix4x4 MakeRotateAxisAngle(const Vector3& axis, float angle) {
+	Matrix4x4 result = {
+		std::pow(axis.x,2) * (1 - std::cos(angle)) + std::cos(angle),   axis.x * axis.y * (1 - std::cos(angle)) + axis.z * std::sin(angle),  axis.x * axis.z * (1 - std::cos(angle)) - axis.y * std::sin(angle),0,
+		axis.x * axis.y * (1 - std::cos(angle)) - axis.z * std::sin(angle),   std::pow(axis.y,2) * (1 - std::cos(angle)) + std::cos(angle),  axis.y * axis.z * (1 - std::cos(angle)) + axis.x * std::sin(angle),0,
+		axis.x * axis.z * (1 - std::cos(angle)) + axis.y * std::cos(angle),   axis.y * axis.z * (1 - std::cos(angle)) - axis.x * std::sin(angle),  std::pow(axis.z,2) * (1 - std::cos(angle)) + std::cos(angle),0,
+		0,0,0,1
+	};
+
+	return result;
+}
